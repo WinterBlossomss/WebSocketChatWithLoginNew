@@ -1,0 +1,108 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
+  color: var(--bs-secondary-color);
+  text-align: end;
+}
+
+.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
+  text-align: start;
+}
+
+body {
+    background: #f0f2f5;
+}
+
+#chat-box {
+    height: 65vh;
+    overflow-y: auto;
+    background: #fff;
+}
+
+.bubble {
+    max-width: 70%;
+    padding: 8px 14px;
+    border-radius: 18px;
+    font-size: .92rem;
+    line-height: 1.5;
+    word-break: break-word;
+}
+
+.sent .bubble {
+    background: #0d6efd;
+    color: #fff;
+    border-bottom-right-radius: 4px;
+}
+
+.recv .bubble {
+    background: #e9ecef;
+    color: #212529;
+    border-bottom-left-radius: 4px;
+}
+
+.msg-time {
+    font-size: .7rem;
+    color: #adb5bd;
+}
+
+.edited-tag {
+    font-size: .68rem;
+    opacity: .75;
+    font-style: italic;
+}
+
+.msg-actions {
+    opacity: 0;
+    transition: opacity .15s;
+}
+
+.sent:hover .msg-actions {
+    opacity: 1;
+}
+
+.edit-area {
+    display: none;
+}
+
+    .edit-area.active {
+        display: block;
+    }
+
+.bubble.editing {
+    display: none;
+}
+
+.deleting {
+    animation: shrink .25s ease forwards;
+}
+
+@keyframes shrink {
+    to {
+        opacity: 0;
+        transform: scale(.9);
+        max-height: 0;
+        overflow: hidden;
+        margin: 0 !important;
+    }
+}
