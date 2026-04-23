@@ -35,6 +35,7 @@ namespace WebSocketChatWithLoginNew.Hubs
 
             await Clients.All.SendAsync("ReceiveMessage", message, _userManager.GetUserName(Context.User));
         }
+
         public async Task InformJoin(string username)
         {
             await Clients.All.SendAsync("ReceiveJoin", username);
