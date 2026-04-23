@@ -113,7 +113,7 @@ public partial class WebsocketChatwithLoginContext : DbContext
             entity.ToTable("Message");
 
             entity.Property(e => e.MesIdpk)
-                .ValueGeneratedNever()
+                .ValueGeneratedOnAdd()
                 .HasColumnName("MesIDPK");
             entity.Property(e => e.MesMessage)
                 .IsRequired()

@@ -33,13 +33,34 @@ namespace WebSocketChatWithLoginNew.Hubs
             _context.Messages.Add(newMessage);
             await _context.SaveChangesAsync();
 
-            await Clients.All.SendAsync("ReceiveMessage", message, _userManager.GetUserName(Context.User));
+            await Clients.All.SendAsync("ReceiveMessage", message, _userManager.GetUserName(Context.User), _userManager.GetUserId(Context.User), newMessage.MesIdpk);
         }
 
-        public async Task InformJoin(string username)
+        public async Task DeleteMessage(int messageId)
         {
-            await Clients.All.SendAsync("ReceiveJoin", username);
+            var userId = _userManager.GetUserId(Context.User);
+            var message = await _context.Messages.FindAsync(messageId);
+            if (message == null || message.MesUserIdfk != userId) return;
 
+            message.MesTimeDeleted = DateTime.UtcNow;
+            await _context.SaveChangesAsync();
+
+            await Clients.All.SendAsync("MessageDeleted", messageId);
         }
+
+        public async Task EditMessage(int messageId, string newText)
+        {
+            if (string.IsNullOrWhiteSpace(newText)) return;
+            var userId = _userManager.GetUserId(Context.User);
+            var message = await _context.Messages.FindAsync(messageId);
+            if (message == null || message.MesUserIdfk != userId) return;
+
+            message.MesMessage = newText;
+            message.MesTimeEdited = DateTime.UtcNow;
+            await _context.SaveChangesAsync();
+
+            await Clients.All.SendAsync("MessageEdited", messageId, newText);
+        }
+
     }
 }

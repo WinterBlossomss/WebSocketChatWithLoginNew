@@ -1,4 +1,4 @@
-﻿@model IEnumerable<WebsocketChatwithLoginContext.Models.Message>
+﻿@model IEnumerable<WebSocketChatWithLoginNew.ViewModels.MessageViewModel>
 @{
     ViewData["Title"] = "Home Page";
 }
@@ -7,7 +7,6 @@
 {
     <div class="container py-4" style="max-width:620px">
         <div class="card shadow-sm">
-
             <div class="card-header d-flex align-items-center gap-2 bg-white">
                 <span class="fs-5">💬</span>
                 <div>
@@ -16,12 +15,26 @@
                 </div>
             </div>
 
-            <div class="card-body p-3" id="chatBoxId">
-                @foreach(var message in Model)
+            <div id="chatBoxId" class="card-body p-3" data-current-user-id="@ViewBag.CurrentUserId">
+                @foreach (var message in Model)
                 {
-                    <div>
-                        <div class="text-muted small mb-1">${esc(userName)}</div>
-                        <div class="bubble">@message.MesMessage</div>
+                    var isSent = message.UserId == ViewBag.CurrentUserId as string;
+                    var side = isSent ? "sent" : "recv";
+                    var initials = (message.UserName ?? "?").Substring(0, Math.Min(2, (message.UserName ?? "?").Length)).ToUpper();
+
+                    <div class="msg-row @side" data-message-id="@message.Id">
+                        <div class="avatar-initials">@initials</div>
+                        <div class="msg-inner">
+                            <div class="msg-name">@message.UserName</div>
+                            <div class="bubble">@message.Text</div>
+                            @if (isSent)
+                            {
+                                <div class="msg-actions">
+                                    <button class="msg-btn edit-btn" data-id="@message.Id">Edit</button>
+                                    <button class="msg-btn delete-btn" data-id="@message.Id">Delete</button>
+                                </div>
+                            }
+                        </div>
                     </div>
                 }
             </div>
@@ -33,9 +46,7 @@
                            style="resize:none;overflow:hidden"/>
                     <button class="btn btn-primary" id="sendMessageId">Send</button>
                 </div>
-                <small class="text-muted">Enter to send · Shift+Enter for new line</small>
             </div>
-
         </div>
     </div>
 }

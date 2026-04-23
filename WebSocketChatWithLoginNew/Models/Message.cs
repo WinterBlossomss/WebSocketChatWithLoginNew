@@ -2,11 +2,13 @@
 #nullable disable
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebSocketChatWithLoginNew.Models;
 
 public partial class Message
 {
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int MesIdpk { get; set; }
 
     public string MesMessage { get; set; }
