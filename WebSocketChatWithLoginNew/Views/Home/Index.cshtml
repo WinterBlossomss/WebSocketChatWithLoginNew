@@ -30,8 +30,8 @@
                             @if (isSent)
                             {
                                 <div class="msg-actions">
-                                    <button class="msg-btn edit-btn" data-id="@message.Id">Edit</button>
-                                    <button class="msg-btn delete-btn" data-id="@message.Id">Delete</button>
+                                    <button class="msg-btn edit-btn" id="deleteBtn" data-id="@message.Id">Edit</button>
+                                    <button class="msg-btn delete-btn" id="editBtn" data-id="@message.Id">Delete</button>
                                 </div>
                             }
                         </div>

@@ -75,7 +75,6 @@ function startEdit(messageId, wrap) {
     });
 }
 
-
 document.getElementById("chatBoxId").addEventListener("click", function (e) {
     const deleteBtn = e.target.closest(".delete-btn");
     const editBtn = e.target.closest(".edit-btn");
@@ -84,7 +83,6 @@ document.getElementById("chatBoxId").addEventListener("click", function (e) {
         const messageId = parseInt(deleteBtn.dataset.id);
         connection.invoke("DeleteMessage", messageId).catch(console.error);
     }
-
     if (editBtn) {
         const messageId = parseInt(editBtn.dataset.id);
         const wrap = editBtn.closest(".msg-row");
